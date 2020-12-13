@@ -1,0 +1,3 @@
+include ':InternetAndLocationPermissionCheck'
+include ':app'
+rootProject.name = "CheckInternetAndLocationPermissions"
