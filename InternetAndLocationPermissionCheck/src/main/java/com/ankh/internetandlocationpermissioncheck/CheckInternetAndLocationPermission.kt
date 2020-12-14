@@ -13,7 +13,7 @@ class CheckInternetAndLocationPermission(private val context: Context){
     private val runningAndroidQOrLater = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q)
 
 
-    private fun isInternetConnected(): Boolean= run{
+    fun isInternetConnected(): Boolean= run{
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return when(runningAndroidQOrLater){
             true->{
@@ -34,7 +34,7 @@ class CheckInternetAndLocationPermission(private val context: Context){
         }
     }
 
-    private fun showErrorSnackBar(view: View,
+    fun showErrorSnackBar(view: View,
                                   actionText: String? = "OK",
                                   errorMessage: String?="You need an active internet connection",
                                   action: ()->Unit?=::openNetworkSettings){
