@@ -8,17 +8,10 @@ import android.net.NetworkInfo
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 
-class CheckInternetAndLocationPermission(
-    private val context: Context,
-    private val view: View,
-    private val errorMessage: String?="You need an active internet connection"
-){
+class CheckInternetAndLocationPermission(private val context: Context){
 
     private val runningAndroidQOrLater = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q)
 
-    init {
-        if(!isInternetConnected()) showErrorSnackBar(view)
-    }
 
     private fun isInternetConnected(): Boolean= run{
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -41,12 +34,17 @@ class CheckInternetAndLocationPermission(
         }
     }
 
-    private fun showErrorSnackBar(view: View){
+    private fun showErrorSnackBar(view: View,
+                                  actionText: String? = "OK",
+                                  errorMessage: String?="You need an active internet connection",
+                                  action: ()->Unit?=::openNetworkSettings){
+
         Snackbar.make(view,errorMessage!!,Snackbar.LENGTH_INDEFINITE).apply {
-            setAction("OK"){
-                openNetworkSettings()
+            setAction(actionText){
+                action()
             }.show()
         }
+
     }
 
     private fun openNetworkSettings(){
